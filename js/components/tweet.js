@@ -1,15 +1,25 @@
 var app = app || {};
 
 (function() {
-	app.Tweet = Backbone.Model.extend({
+	app.Tweet = Backbone.AssociatedModel.extend({
+			relations: [{
+				type: Backbone.Many,
+				key: 'comments',
+				relatedModel: 'app.Comment'
+			}],
+
+
 			defaults: {
-				text: ''
+				text: '',
+				twidate: '',
+				comments: [],
+				isCommentsShowed: false
 			},
 
 			initialize: function() {
 				var myDate = new Date();
-				this.twidate = displayDate = myDate.getFullYear() + '年' + (myDate.getMonth()+1) + '月' + myDate.getDate();
-				return this.twidate;
+				var nowDate = myDate.getFullYear() + '年' + (myDate.getMonth()+1) + '月' + myDate.getDate() + '日';
+				this.save({ twidate: nowDate});
 			}
 	});
 })();

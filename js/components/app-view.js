@@ -35,6 +35,7 @@ var app = app || {};
 				app.tweets.create({text: this.$textarea.val()});
 				this.$textarea.val('');
 				this.$tweetBtn.addClass('disabled');
+				
 			}
 		}
 	});

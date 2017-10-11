@@ -78,7 +78,7 @@ button:hover, button[type="button"]:focus {
 	list-style-type: none;
 	position: relative;
 	min-height: 80px;
-	padding: 12px 12px 15px 12px;
+	padding: 12px 12px 8px 12px;
 	border: 1px solid rgb(230, 236, 240);
 	opacity:0;
 	-webkit-animation:fadeIn ease-in 1; 
@@ -104,6 +104,9 @@ button:hover, button[type="button"]:focus {
 }
 .content {
 	margin-left: 72px;
+}
+.tweet-text {
+	margin-bottom: 7px;
 }
 #tweet-list li .dropdown-btn {
 	position: absolute;
@@ -163,4 +166,29 @@ button:hover, button[type="button"]:focus {
 .username {
 	font-size: 13px;
 	color: #657786;
+}
+.tweet-date {
+	font-size: 13px;
+}
+.icon-comment, .icon-heart {
+	display: inline-block;
+	cursor: pointer;
+}
+.icon-comment {
+	margin-right: 17px;
+}
+.icon-comment:hover {
+	color: #1da1f2;
+}
+.icon-heart {
+	margin-top: 1px;
+}
+.icon-heart:hover {
+	color: rgb(227,36,95);
+}
+.comment {
+	display: hidden;
+}
+.comment .show {
+	display: block;
 }

@@ -45,23 +45,48 @@
 			<div class="namegroup">
 				<span class="fullname">Abraham Kagawa</span> 
 				<span>&nbsp;</span>
-				<span class="username">@abraham_kagawa</span>
+				<span class="username">@abraham_kagawa</span><span> - </span>
+				<span class="tweet-date"><%- twidate %></span>
 			</div>
 			<div class="tweet-text">
 				<%- text %>
 			</div>
+			<div class="iconContainer ">
+				<span class="icon-comment"><i class="fa fa-comment-o" aria-hidden="true"></i></span>
+				<span class="icon-heart"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+			</div>
 		</div>
+
+	</script>
+	<script type="text/template" id="comment-template">
+		<form id="twi-form" action="" method="post" accept-charset="utf-8">
+			<input type="text" class="comment-input">
+			<button type="button" class="btn btn-primary pull-right btn-comment">P.S</button>
+		</form>
+		<ul class="comment-list">
+		<% if (comments.length != 0 ) { %>
+			<% _.each(comments, function(com) { %>
+				<li><%= _.escape(com.text) %></li>
+			<% }); %>
+		<% } %>
+		</ul> 
+	</script>
+	<script type="text/template" id="new-comment">
+		<%= _.escape(comments[0].text) %>
 	</script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/underscore-min.js"></script>
 	<script src="js/backbone.js"></script>
+	<script src="js/backbone-associations-min.js"></script>
 	<script src="js/backbone.localStorage.js"></script>
 	<script src="js/components/tweet.js"></script>
 	<script src="js/components/tweets.js"></script>
 	<script src="js/components/tweet-view.js"></script>
 	<script src="js/components/app-view.js"></script>
 	<script src="js/components/app.js"></script>
+	<script src="js/components/comment.js"></script>
+	<script src="js/components/comment-view.js"></script>
 	<script>
 	//activate tooltip
 	$(document).ready(function(){
@@ -77,7 +102,7 @@
 	var checkScrollBars = function(){
     	if($b.prop('scrollHeight')>$b.height()){
 	        normalw = window.innerWidth;
-	        scrollw = normalw - b.width();
+	        scrollw = normalw - $b.width();
 	        console.log('yes');
 	        $('#container').css({marginRight:'-'+scrollw+'px'});
     	}
