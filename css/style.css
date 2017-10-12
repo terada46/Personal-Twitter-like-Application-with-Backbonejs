@@ -14,6 +14,7 @@
 }
 body {
 	background-color: rgb(230, 236, 240);
+	overflow: scroll;
 	overflow-x:hidden;
 }
 h1 { font-size: 25px; font-weight: 600; line-height: 0}
@@ -43,26 +44,30 @@ h2 { font-size: 14px; color: rgba(49, 49, 49, 0.58);}
 	margin-bottom: 30px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #fbe6dd;
+	background-color: #fff;
 }
 textarea {
-	border: 1px solid #e9ae97 !important;
+	border: 1px solid #2bb6c1 !important;
+	-webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
 }
 textarea {
 	resize: none;
 }
 textarea:focus {
-	border-color: rgba(233, 174, 151, 0.8) !important;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(248, 95, 35, 0.6) !important;
+	border: 1px solid rgba(43, 182, 193, 0.9) !important;
+	box-shadow: 0 0 6px rgba(43, 182, 193, 0.6) !important;
   	outline: 0 none !important;
 }
-button {
+/*button {
 	background-color: #9f6f58 !important;
 	border-color: #876858 !important;
-}
-button:hover, button[type="button"]:focus {
+}*/
+/*button:hover, button[type="button"]:focus {
 	background-color: #936752 !important;
-}
+}*/
 
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -72,14 +77,9 @@ button:hover, button[type="button"]:focus {
 	width: 590px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #FFF;
 }
-#tweet-list li {
+#tweet-list > li, .comment-list li {
 	list-style-type: none;
-	position: relative;
-	min-height: 80px;
-	padding: 12px 12px 8px 12px;
-	border: 1px solid rgb(230, 236, 240);
 	opacity:0;
 	-webkit-animation:fadeIn ease-in 1; 
 	-moz-animation:fadeIn ease-in 1;
@@ -93,13 +93,29 @@ button:hover, button[type="button"]:focus {
 	-moz-animation-duration:0.6s;
 	animation-duration:0.6s;
 }
-#tweet-list li:hover {
+#tweet-list > li {
+	position: relative;
+	min-height: 80px;
+	border-radius: 4px;
+	border-bottom: 1px solid rgb(230, 236, 240);
+	background-color: #FFF;
+	margin-bottom: 20px;
+}
+.comment-list li {
+	padding: 12px 12px 12px 12px;
+    border-bottom: 1px solid #e6ecf0;
+    min-height: 15px;
+}
+.tweet-container {
+	padding: 12px 12px 8px 12px;
+}
+.comment-container {
+	padding-bottom: 15px;
+}
+#tweet-list > li .tweet-container:hover {
 	background-color: rgb(245, 248, 250);
 }
-#tweet-list li:not(:first-child) {
-	border-top: none;
-} 
-#tweet-list li img {
+#tweet-list > li .tweet-container img {
 	width: 50px;
 }
 .content {
@@ -108,7 +124,7 @@ button:hover, button[type="button"]:focus {
 .tweet-text {
 	margin-bottom: 7px;
 }
-#tweet-list li .dropdown-btn {
+#tweet-list > li .dropdown-btn {
 	position: absolute;
 	padding: 4px;
 	margin-right: 6px;
@@ -186,9 +202,59 @@ button:hover, button[type="button"]:focus {
 .icon-heart:hover {
 	color: rgb(227,36,95);
 }
-.comment {
-	display: hidden;
+fieldset {
+	width: 100%;
+	text-align: center;
+    font-size: 1em;
+    padding: 0.5em;
+    border-radius: 1em;
+    font-family: sans-serif;
+    background-color: rgb(245, 248, 250);
+    border-top: 1px solid rgb(230, 236, 240);
+    border-bottom: 1px solid rgb(230, 236, 240);
+    border-radius: 0;
 }
-.comment .show {
-	display: block;
+
+input.comment-input, button.btn-comment, button#tweet {
+    font-size: inherit;
+    padding: 0.2em;
+    margin: 0.1em 0.2em;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+input.comment-input {
+	width: 60%;
+	border-color: #2bb6c1;
+	border-left: 1px solid #2bb6c1;
+	border-top: 1px solid #2bb6c1;
+	border-width: 1px;
+}
+button.btn-comment, button#tweet {
+	width: 60px;
+	text-align: center;
+	color: #2bb6c1;
+	background-color: #fff;
+	border:dashed 1px #2bb6c1;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-o-transition: 0.3s;
+	-ms-transition: 0.3s;
+	transition: 0.3s;
+}
+button.btn-comment:hover {
+	background: #2bb6c1;
+  	color: #fff;
+} 
+button#tweet:not(.disabled):hover {
+	background: #2bb6c1;
+  	color: #fff;
+} 
+button#tweet.disabled, button.btn-comment.disabled {
+	color: #d2d2d2 !important;
+	border-color: #d2d2d2 !important;
+	-webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+    cursor: not-allowed;
 }

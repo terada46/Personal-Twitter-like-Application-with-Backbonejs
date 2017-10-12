@@ -33,14 +33,11 @@ window.template = function(id) {
 			var isCommentsShowed = this.model.get('isCommentsShowed');
 	
 			if (isCommentsShowed == true) {
-				console.log('12');
 				this.commentView.remove();
 				this.model.set({'isCommentsShowed': false});
-			} else if (isCommentsShowed == false){
-				console.log(this.commentView);
-				console.log(this.model.get('comments'));
-				
+			} else if (isCommentsShowed == false){			
 				this.$el.append(this.commentView.render().el);
+				this.comVlidation();
 				this.model.set({'isCommentsShowed': true});
 			}
 		},
@@ -51,12 +48,19 @@ window.template = function(id) {
 		},
 
 		postComment: function() {
-			console.log(this.$('.comment-input').val());
-			this.model.get('comments').add({ text: this.$('.comment-input').val()}, {at: 0} );
-			this.$('.comment-input').val('');
-			this.model.trigger('change:comments');
-			this.$commentInput = this.$('.comment-input');
-			return this;
+			if ( !this.$('.btn-comment').hasClass('disabled') ) {
+				this.model.get('comments').add({ text: this.$('.comment-input').val()}, {at: 0} );
+				this.$('.comment-input').val('');
+				this.model.trigger('change:comments');
+				this.$('.btn-comment').addClass('disabled');
+				this.$commentInput = this.$('.comment-input');
+			}
+		},
+
+		comVlidation: function() {
+			$('.comment-input').keyup( function() {
+		    	$('.btn-comment').toggleClass('disabled', !($('.comment-input').val()));
+		    });
 		},
 
 		clear: function() {

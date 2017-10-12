@@ -24,7 +24,7 @@
 						<textarea rows="3" name="" value="" placeholder="Write anything you want" class="form-control"></textarea>
 					</div>
 
-						<button type="button" class="btn btn-primary pull-right" id="tweet">Tweet</button>
+						<button type="button" class="pull-right" id="tweet">Tweet</button>
 
 				</form>
 			</div>
@@ -36,33 +36,37 @@
 	</div>
 
 	<script type="text/template" id="li-template">
-		<div class="dropdown-btn">
-			<i class="fa fa-chevron-down" aria-hidden="true"></i>
-			<div class="destroy">删除</div>
-		</div>
-		<img src="img/profile.jpg" class="img-circle pull-left">
-		<div class="content">
-			<div class="namegroup">
-				<span class="fullname">Abraham Kagawa</span> 
-				<span>&nbsp;</span>
-				<span class="username">@abraham_kagawa</span><span> - </span>
-				<span class="tweet-date"><%- twidate %></span>
+		<div class="tweet-container">
+			<div class="dropdown-btn">
+				<i class="fa fa-chevron-down" aria-hidden="true"></i>
+				<div class="destroy">删除</div>
 			</div>
-			<div class="tweet-text">
-				<%- text %>
-			</div>
-			<div class="iconContainer ">
-				<span class="icon-comment"><i class="fa fa-comment-o" aria-hidden="true"></i></span>
-				<span class="icon-heart"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+			<img src="img/profile.jpg" class="img-circle pull-left">
+			<div class="content">
+				<div class="namegroup">
+					<span class="fullname">Abraham Kagawa</span> 
+					<span>&nbsp;</span>
+					<span class="username">@abraham_kagawa</span><span> - </span>
+					<span class="tweet-date"><%- twidate %></span>
+				</div>
+				<div class="tweet-text">
+					<%- text %>
+				</div>
+				<div class="iconContainer ">
+					<span class="icon-comment"><i class="fa fa-comment-o" aria-hidden="true"></i></span>
+					<span class="icon-heart"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+				</div>
 			</div>
 		</div>
 
 	</script>
 	<script type="text/template" id="comment-template">
-		<form id="twi-form" action="" method="post" accept-charset="utf-8">
+		<div class="comment-form">
+			<fieldset>
 			<input type="text" class="comment-input">
-			<button type="button" class="btn btn-primary pull-right btn-comment">P.S</button>
-		</form>
+			<button type="button" class="btn-comment disabled">评论</button>
+			</fieldset>
+		</div>
 		<ul class="comment-list">
 		<% if (comments.length != 0 ) { %>
 			<% _.each(comments, function(com) { %>
@@ -95,19 +99,6 @@
 	    	$('#tweet').toggleClass('disabled', !($('textarea').val()));
 	    });
 	 });
-
-	var $b = $('body');
-    var normalw = 0;
-    var scrollw = 0;
-	var checkScrollBars = function(){
-    	if($b.prop('scrollHeight')>$b.height()){
-	        normalw = window.innerWidth;
-	        scrollw = normalw - $b.width();
-	        console.log('yes');
-	        $('#container').css({marginRight:'-'+scrollw+'px'});
-    	}
-	}
-	$(window).resize(checkScrollBars);
 	</script>
 
 

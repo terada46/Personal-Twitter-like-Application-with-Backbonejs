@@ -6,7 +6,7 @@ var app = app || {};
 
 		tagName: 'div',
 
-		className: 'comment',
+		className: 'comment-container',
 
 		comment_template: template('comment-template'),
 
