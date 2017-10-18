@@ -124,6 +124,12 @@ textarea:focus {
 .tweet-text {
 	margin-bottom: 7px;
 }
+.comment-date {
+	margin-bottom: 5px;
+	font-size: 10px;
+	color: rgb(0, 179, 193);
+}
+
 #tweet-list > li .dropdown-btn {
 	position: absolute;
 	padding: 4px;
@@ -201,6 +207,9 @@ textarea:focus {
 }
 .icon-heart:hover {
 	color: rgb(227,36,95);
+}
+.fa.fa-heart {
+	color: rgb(224,36,93);
 }
 fieldset {
 	width: 100%;

@@ -47,7 +47,7 @@
 					<span class="fullname">Abraham Kagawa</span> 
 					<span>&nbsp;</span>
 					<span class="username">@abraham_kagawa</span><span> - </span>
-					<span class="tweet-date"><%- twidate %></span>
+					<span class="tweet-date"><%- twiDateText %></span>
 				</div>
 				<div class="tweet-text">
 					<%- text %>
@@ -70,13 +70,16 @@
 		<ul class="comment-list">
 		<% if (comments.length != 0 ) { %>
 			<% _.each(comments, function(com) { %>
-				<li><%= _.escape(com.text) %></li>
+				<li><div class="comment-date"><%= _.escape(com.commentDateText) %></div>
+					<div><%= _.escape(com.text) %></div>
+				</li>
 			<% }); %>
 		<% } %>
 		</ul> 
 	</script>
 	<script type="text/template" id="new-comment">
-		<%= _.escape(comments[0].text) %>
+		<div class="comment-date"><%= _.escape(comments[0].commentDateText) %></div>
+		<div><%= _.escape(comments[0].text) %></div>
 	</script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -90,6 +93,7 @@
 	<script src="js/components/app-view.js"></script>
 	<script src="js/components/app.js"></script>
 	<script src="js/components/comment.js"></script>
+	<script src="js/components/comments.js"></script>
 	<script src="js/components/comment-view.js"></script>
 	<script>
 	//activate tooltip

@@ -16,13 +16,11 @@ var app = app || {};
 			this.$textarea = $('textarea');
 
 			this.listenTo(app.tweets, 'add', this.addOne);
-			this.listenTo(app.tweets, 'reset', this.render);
 			this.render();
 		},
 
 		render: function() {
-			app.tweets.each(this.addOne, this);
-			return this;
+			app.tweets.fetch();
 		},
 
 		addOne: function(twi) {
@@ -35,7 +33,6 @@ var app = app || {};
 				app.tweets.create({text: this.$textarea.val()});
 				this.$textarea.val('');
 				this.$tweetBtn.addClass('disabled');
-				
 			}
 		}
 	});

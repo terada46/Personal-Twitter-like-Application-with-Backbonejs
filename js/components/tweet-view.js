@@ -14,7 +14,8 @@ window.template = function(id) {
 		events: {
 			'click .destroy': 'clear',
 			'click .icon-comment': 'showComment',
-			'click .btn-comment': 'postComment'
+			'click .btn-comment': 'postComment',
+			'click .icon-heart': 'toggleLiked'
 		},
 
 		initialize: function() {
@@ -36,8 +37,8 @@ window.template = function(id) {
 				this.commentView.remove();
 				this.model.set({'isCommentsShowed': false});
 			} else if (isCommentsShowed == false){			
-				this.$el.append(this.commentView.render().el);
-				this.comVlidation();
+				this.$el.append(this.commentView.render().el);		
+				this.commentVlidation();
 				this.model.set({'isCommentsShowed': true});
 			}
 		},
@@ -49,17 +50,23 @@ window.template = function(id) {
 
 		postComment: function() {
 			if ( !this.$('.btn-comment').hasClass('disabled') ) {
-				this.model.get('comments').add({ text: this.$('.comment-input').val()}, {at: 0} );
+				this.model.get('comments').add( { text: this.$('.comment-input').val()}, {at: 0} );
+				console.log(this.model.get('comments'));
 				this.$('.comment-input').val('');
 				this.model.trigger('change:comments');
 				this.$('.btn-comment').addClass('disabled');
-				this.$commentInput = this.$('.comment-input');
 			}
 		},
 
-		comVlidation: function() {
-			$('.comment-input').keyup( function() {
-		    	$('.btn-comment').toggleClass('disabled', !($('.comment-input').val()));
+		toggleLiked: function() {
+			this.model.toggleLiked();
+			this.$('.icon-heart > .fa').toggleClass('fa-heart', this.model.get('liked'))
+								 .toggleClass('fa-heart-o', !(this.model.get('liked')))
+		},
+
+		commentVlidation: function() {
+			$('.comment-input').keyup( function(e) {
+		    	$(this).parent().find('button').toggleClass('disabled', !( $(this).val() ));
 		    });
 		},
 
