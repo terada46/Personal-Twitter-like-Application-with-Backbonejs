@@ -16,11 +16,31 @@ var app = app || {};
 			this.$textarea = $('textarea');
 
 			this.listenTo(app.tweets, 'add', this.addOne);
+			this.listenTo(app.tweets, 'filter', this.filterAll);
 			this.render();
 		},
 
 		render: function() {
+			if (app.tweets.length) {
+				$('#tab_box').show();
+			}
 			app.tweets.fetch();
+		},
+
+		fetchLike: function() {
+			this.$list.remove();
+			app.tweets.fetch( {
+				data: {Liked: true},
+				reset: true
+			});
+		},
+
+		filterOne: function(twi) {
+			twi.trigger('visible');
+		},
+
+		filterAll: function(event) {
+			app.tweets.each(this.filterOne, this);
 		},
 
 		addOne: function(twi) {

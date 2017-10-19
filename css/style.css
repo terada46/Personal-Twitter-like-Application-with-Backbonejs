@@ -267,3 +267,26 @@ button#tweet.disabled, button.btn-comment.disabled {
     opacity: .65;
     cursor: not-allowed;
 }
+#tab_box {
+	width: 590px;
+    height: auto;
+    margin-bottom: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+}
+#all-tab, #like-tab {
+	display: inline-block;
+}
+#all-tab a, #like-tab a {
+	display: block;
+	padding: 6px 17px;
+	color: black;
+	text-decoration: none;
+}
+#all-tab a:hover, #like-tab a:hover {
+	color: #2bb6c1;
+}
+.tab-clicked {
+	border-bottom: 3px solid #2bb6c1;
+}

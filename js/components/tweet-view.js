@@ -23,11 +23,29 @@ window.template = function(id) {
 			this.$commentList = this.$('.comment-list');
 			this.listenTo(this.model, 'destroy', this.remove);
 			this.listenTo(this.model, 'change:comments', this.addComment);
+			this.listenTo(this.model, 'visible', this.isVisible);
+			this.isVisible();
 		},
 		
 		render: function() {
 			this.$el.html(this.twi_template(this.model.toJSON()));
 			return this;
+		},
+
+		isVisible: function() {
+			if (app.twiFilter === 'liked' && !this.model.get('liked')) {
+				this.$el.hide();
+				this.toggleTabClass();
+			} else if (app.twiFilter === 'all') {
+				this.$el.show();
+				this.toggleTabClass();
+			}
+		},
+
+		toggleTabClass: function() {
+			var ifLiked = function(){return app.twiFilter === 'liked'};
+			$('#like-tab').toggleClass('tab-clicked', ifLiked());
+			$('#all-tab').toggleClass('tab-clicked', !ifLiked());
 		},
 
 		showComment: function() {
