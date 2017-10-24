@@ -1,10 +1,8 @@
 var app = app || {};
 
-window.template = function(id) {
-		return _.template( $('#' + id).html() );
-};
-
 (function ($) {
+	'use strict';
+
 	app.TwiView = Backbone.View.extend({
 
 		tagName: 'li',
@@ -14,8 +12,9 @@ window.template = function(id) {
 		events: {
 			'click .destroy': 'clear',
 			'click .icon-comment': 'showComment',
-			'click .btn-comment': 'postComment',
-			'click .icon-heart': 'toggleLiked'
+			'click .comment-btn': 'postComment',
+			'click .icon-heart': 'toggleLiked',
+			'click .dropdown-btn': 'toggleDropdownBtn'
 		},
 
 		initialize: function() {
@@ -23,7 +22,7 @@ window.template = function(id) {
 			this.$commentList = this.$('.comment-list');
 			this.listenTo(this.model, 'destroy', this.remove);
 			this.listenTo(this.model, 'change:comments', this.addComment);
-			this.listenTo(this.model, 'visible', this.isVisible);
+			this.listenTo(this.model, 'visible change', this.isVisible);
 			this.isVisible();
 		},
 		
@@ -48,6 +47,17 @@ window.template = function(id) {
 			$('#all-tab').toggleClass('tab-clicked', !ifLiked());
 		},
 
+		toggleDropdownBtn: function() {
+			this.$destroy = this.$('.destroy');
+			if (this.$destroy.hasClass('show') || this.$destroy.hasClass('fadeOutDown')) {
+				this.$destroy.toggleClass('show');
+				this.$destroy.toggleClass('fadeOutDown');
+			}
+			if (this.$destroy.hasClass('show')) {
+				$('.destroy').not(this.$destroy).removeClass('show').addClass('fadeOutDown');
+			}
+		},
+
 		showComment: function() {
 			var isCommentsShowed = this.model.get('isCommentsShowed');
 	
@@ -67,13 +77,21 @@ window.template = function(id) {
 		},
 
 		postComment: function() {
-			if ( !this.$('.btn-comment').hasClass('disabled') ) {
-				this.model.get('comments').add( { text: this.$('.comment-input').val()}, {at: 0} );
-				console.log(this.model.get('comments'));
+			if ( !this.$('.comment-btn').hasClass('disabled') ) {
+				var nowDate = this.commentDate();
+				this.model.get('comments').add( { text: this.$('.comment-input').val(), commentDateText: nowDate }, {at: 0} );
+				this.model.save();
 				this.$('.comment-input').val('');
 				this.model.trigger('change:comments');
-				this.$('.btn-comment').addClass('disabled');
+				this.$('.comment-btn').addClass('disabled');
 			}
+		},
+
+		commentDate: function() {
+			var commentDate = new Date();
+			var minites = commentDate.getMinutes() > 9 ? commentDate.getMinutes() : '0' + commentDate.getMinutes();
+			return commentDate.getHours() + ':' + minites + ' - ' +
+						commentDate.getFullYear() + '年' + (commentDate.getMonth()+1) + '月' + commentDate.getDate() + '日';
 		},
 
 		toggleLiked: function() {
@@ -83,7 +101,7 @@ window.template = function(id) {
 		},
 
 		commentVlidation: function() {
-			$('.comment-input').keyup( function(e) {
+			$('.comment-input').bind('input propertychange', function(e) {
 		    	$(this).parent().find('button').toggleClass('disabled', !( $(this).val() ));
 		    });
 		},

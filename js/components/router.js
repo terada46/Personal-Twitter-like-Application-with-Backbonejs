@@ -1,6 +1,8 @@
 var app = app || {};
 
 (function() {
+	'use strict';
+	
 	var TwiRouter = Backbone.Router.extend({
 		routes: {
 			'like': 'setLikedList',

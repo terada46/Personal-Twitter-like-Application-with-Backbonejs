@@ -1,6 +1,7 @@
 var app = app || {};
 
 (function ($) {
+	'use strict';
 
 	app.AppView = Backbone.View.extend({
 
@@ -14,25 +15,24 @@ var app = app || {};
 			this.$list = $('#tweet-list');
 			this.$tweetBtn = $('#tweet');
 			this.$textarea = $('textarea');
+			this.$tabBox = $('#tab_box');
 
 			this.listenTo(app.tweets, 'add', this.addOne);
+			this.listenTo(app.tweets, 'change add remove reset', this.toggleHidden);
 			this.listenTo(app.tweets, 'filter', this.filterAll);
 			this.render();
 		},
 
 		render: function() {
-			if (app.tweets.length) {
-				$('#tab_box').show();
-			}
+			app.tweets.trigger('change');
 			app.tweets.fetch();
 		},
 
-		fetchLike: function() {
-			this.$list.remove();
-			app.tweets.fetch( {
-				data: {Liked: true},
-				reset: true
-			});
+		toggleHidden: function() {
+			var hastwi = app.tweets.length ? true : false;
+			this.$tabBox.toggleClass('hidden', !hastwi);
+			this.$tabBox.attr('aria-hidden', ( hastwi ? false : true));
+			this.$list.attr('aria-hidden', ( hastwi ? false : true));
 		},
 
 		filterOne: function(twi) {
@@ -50,10 +50,17 @@ var app = app || {};
 
 		post: function() {
 			if ( !this.$tweetBtn.hasClass('disabled') ) {
-				app.tweets.create({text: this.$textarea.val()});
+				var nowDate = this.postDate();
+				app.tweets.create({text: this.$textarea.val(), twiDateText: nowDate });
 				this.$textarea.val('');
 				this.$tweetBtn.addClass('disabled');
 			}
+		},
+
+		postDate: function() {
+			var myDate = new Date();
+			var minites = myDate.getMinutes() > 9 ? myDate.getMinutes() : '0' + myDate.getMinutes();
+			return myDate.getFullYear() + '年' + (myDate.getMonth()+1) + '月' + myDate.getDate() + '日' + minites;
 		}
 	});
 

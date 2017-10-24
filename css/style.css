@@ -61,13 +61,6 @@ textarea:focus {
 	box-shadow: 0 0 6px rgba(43, 182, 193, 0.6) !important;
   	outline: 0 none !important;
 }
-/*button {
-	background-color: #9f6f58 !important;
-	border-color: #876858 !important;
-}*/
-/*button:hover, button[type="button"]:focus {
-	background-color: #936752 !important;
-}*/
 
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -129,20 +122,19 @@ textarea:focus {
 	font-size: 10px;
 	color: rgb(0, 179, 193);
 }
-
 #tweet-list > li .dropdown-btn {
 	position: absolute;
-	padding: 4px;
-	margin-right: 6px;
-	margin-top: 3px;
+	padding: 4px 9px 4px 9px;
 	right: 0;
 	top: 0;
 	cursor: pointer;
 }
+.dropdown-btn .fa:hover {
+	color: rgb(0, 179, 193);
+}
 .destroy {
-	display: none;
 	position: absolute;
-	left: 0px;
+	left: 4.6px;
 	top: 28px;
 	width: 60px;
 	text-align: center;
@@ -179,8 +171,53 @@ textarea:focus {
     border-bottom: 7px solid #ffffff;
 }
 
-.dropdown-btn:hover .destroy {
+@-webkit-keyframes fadeInUp {
+	0% { opacity:0; -webkit-transform:translateY(10px); }
+	100% { opacity:1; -webkit-transform:translateY(0); }
+}
+@keyframes fadeInUp {
+	0% { opacity:0; transform:translateY(10px); }
+	100% { opacity:1; transform:translateY(0); }
+}
+@-moz-keyframes fadeInUp {
+	0% { opacity:0; -moz-transform:translateY(10px); }
+	100% { opacity:1; -moz-transform:translateY(0); }
+}
+
+@-webkit-keyframes fadeOutDown {
+	0% { opacity:1; -webkit-transform:translateY(0); }
+	100% { opacity:0; -webkit-transform:translateY(10px); display: none; }
+}
+@keyframes fadeOutDown {
+	0% { opacity:1; transform:translateY(0); }
+	100% { opacity:0; transform:translateY(10px); display: none;}
+}
+@-moz-keyframes fadeOutDown {
+	0% { opacity:1; -moz-transform:translateY(0); }
+	100% { opacity:0; -moz-transform:translateY(10px); display: none; }
+}
+.dropdown-btn div.destroy.show {
 	display: table;
+	-moz-animation:fadeInUp;
+	-webkit-animation:fadeInUp;
+	animation:fadeInUp;
+
+	-webkit-animation-duration:0.3s;
+	-moz-animation-duration:0.3s;
+	animation-duration:0.3s;
+} 
+.dropdown-btn div.destroy.fadeOutDown {
+	-moz-animation:fadeOutDown;
+	-webkit-animation:fadeOutDown;
+	animation:fadeOutDown;
+
+	-webkit-animation-fill-mode:forwards; 
+	-moz-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+
+	-webkit-animation-duration:0.3s;
+	-moz-animation-duration:0.3s;
+	animation-duration:0.3s;
 } 
 .fullname {
 	font-weight: bold;
@@ -224,7 +261,7 @@ fieldset {
     border-radius: 0;
 }
 
-input.comment-input, button.btn-comment, button#tweet {
+input.comment-input, button.comment-btn, button#tweet {
     font-size: inherit;
     padding: 0.2em;
     margin: 0.1em 0.2em;
@@ -239,7 +276,7 @@ input.comment-input {
 	border-top: 1px solid #2bb6c1;
 	border-width: 1px;
 }
-button.btn-comment, button#tweet {
+button.comment-btn, button#tweet {
 	width: 60px;
 	text-align: center;
 	color: #2bb6c1;
@@ -251,7 +288,7 @@ button.btn-comment, button#tweet {
 	-ms-transition: 0.3s;
 	transition: 0.3s;
 }
-button.btn-comment:hover {
+button.comment-btn:hover {
 	background: #2bb6c1;
   	color: #fff;
 } 
@@ -259,7 +296,7 @@ button#tweet:not(.disabled):hover {
 	background: #2bb6c1;
   	color: #fff;
 } 
-button#tweet.disabled, button.btn-comment.disabled {
+button#tweet.disabled, button.comment-btn.disabled {
 	color: #d2d2d2 !important;
 	border-color: #d2d2d2 !important;
 	-webkit-box-shadow: none;
@@ -274,6 +311,9 @@ button#tweet.disabled, button.btn-comment.disabled {
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
+}
+#tab_box.hidden {
+	display: none;
 }
 #all-tab, #like-tab {
 	display: inline-block;

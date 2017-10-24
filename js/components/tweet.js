@@ -1,6 +1,8 @@
 var app = app || {};
 
 (function() {
+	'use strict';
+	
 	app.Tweet = Backbone.AssociatedModel.extend({
 			relations: [{
 				type: Backbone.Many,
@@ -24,9 +26,15 @@ var app = app || {};
 				this.get('comments').url = function() {
 					return '/tweet/' + com.id + '/comments';
 				}
-				var myDate = new Date();
-				var nowDate = myDate.getFullYear() + '年' + (myDate.getMonth()+1) + '月' + myDate.getDate() + '日';
-				this.save({ twiDateText: nowDate });
+				this.save({ isCommentsShowed: false});
+				// if ( this.twiDateText === '') {
+				// 	var myDate = new Date();
+				// 	var minites = myDate.getMinutes() > 9 ? myDate.getMinutes() : '0' + myDate.getMinutes();
+				// 	var nowDate = myDate.getFullYear() + '年' + (myDate.getMonth()+1) + '月' + myDate.getDate() + '日' + minites;
+				// 	return Backbone.Model.prototype.save.call(this, { isCommentsShowed: false, twiDateText: nowDate });
+				// } else {
+				// 	return Backbone.Model.prototype.save.call(this, { isCommentsShowed: false });
+				// }
 			},
 
 			toggleLiked: function() {

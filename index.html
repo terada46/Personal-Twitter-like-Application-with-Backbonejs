@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cmn-Hans-CN">
 <head>
-	<meta charset="utf-8">
-	<title>My Twitter </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>A Backbonejs Twitter APP</title>
+	<meta name="description" content="An personal twiiter app built with Backbonejs framework.">
+	<meta name="author" content="DENG XIAODONG">
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<script>
+		window.template = function(id) {
+			return _.template( $('#' + id).html() );
+		};
+	</script>
 </head>
-<body>
+<body role="application">
 	<div id="header">
 			<img src="img/profile.jpg" class="img-circle">
 		<div class="text-center">
@@ -15,16 +24,15 @@
 			<h2>@abraham_kagawa</h2>
 		</div>
 	</div>
-	<div class="container"  id="twiapp">
+	<div class="container"  id="twiapp" role="main">
 		<div id="write-twi">
-			
 			<div id="myTwtterApp" class="form-group">
 				<form id="twi-form" action="" method="post" accept-charset="utf-8">
 					<div class="twi-text">
-						<textarea rows="3" name="" value="" placeholder="Write anything you want" class="form-control"></textarea>
+						<textarea rows="3" name="" value="" placeholder="Write anything you want" class="form-control" aria-multiline="true" aria-required="true"></textarea>
 					</div>
 
-						<button type="button" class="pull-right" id="tweet">Tweet</button>
+						<button type="button" role="button" class="pull-right" id="tweet">Tweet</button>
 
 				</form>
 			</div>
@@ -40,7 +48,7 @@
 		<div class="tweet-container">
 			<div class="dropdown-btn">
 				<i class="fa fa-chevron-down" aria-hidden="true"></i>
-				<div class="destroy">删除</div>
+				<div class="destroy fadeOutDown">删除</div>
 			</div>
 			<img src="img/profile.jpg" class="img-circle pull-left">
 			<div class="content">
@@ -67,7 +75,7 @@
 		<div class="comment-form">
 			<fieldset>
 			<input type="text" class="comment-input">
-			<button type="button" class="btn-comment disabled">评论</button>
+			<button type="button" role="button" class="comment-btn disabled">评论</button>
 			</fieldset>
 		</div>
 		<ul class="comment-list">
@@ -100,15 +108,18 @@
 	<script src="js/components/router.js"></script>
 	<script src="js/components/app.js"></script>
 	<script>
-	//activate tooltip
 	$(document).ready(function(){
 		$('#tweet').addClass('disabled');
-		$('textarea').keyup( function() {
-	    	$('#tweet').toggleClass('disabled', !($('textarea').val()));
-	    });
+		$('textarea').bind('input propertychange', function() {
+		   $('#tweet').toggleClass('disabled', !($('textarea').val()));
+		});
 	 });
+
+	$(document).on('click', function(event) {
+		if (!$(event.target).closest($('.dropdown-btn')).length) {
+			$('.destroy').removeClass('show').addClass('fadeOutDown');
+		}
+	})
 	</script>
-
-
 </body>
 </html>

@@ -7,6 +7,7 @@ var app = app || {};
 		url: function() {
 			return '/comments';
 		}
+
 	});
 
 })();
