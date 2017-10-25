@@ -59,8 +59,7 @@ var app = app || {};
 
 		postDate: function() {
 			var myDate = new Date();
-			var minites = myDate.getMinutes() > 9 ? myDate.getMinutes() : '0' + myDate.getMinutes();
-			return myDate.getFullYear() + '年' + (myDate.getMonth()+1) + '月' + myDate.getDate() + '日' + minites;
+			return myDate.getFullYear() + '年' + (myDate.getMonth()+1) + '月' + myDate.getDate() + '日';
 		}
 	});
 

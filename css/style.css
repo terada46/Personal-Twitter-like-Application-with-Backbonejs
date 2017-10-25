@@ -17,7 +17,7 @@ body {
 	overflow: scroll;
 	overflow-x:hidden;
 }
-h1 { font-size: 25px; font-weight: 600; line-height: 0}
+h1 { font-size: 25px; font-weight: 600; line-height: 0;}
 h2 { font-size: 14px; color: rgba(49, 49, 49, 0.58);}
 #header {
 	width: 590px;
@@ -46,20 +46,35 @@ h2 { font-size: 14px; color: rgba(49, 49, 49, 0.58);}
 	margin-right: auto;
 	background-color: #fff;
 }
-textarea {
-	border: 1px solid #2bb6c1 !important;
+textarea.tw_input {
 	-webkit-transition: all 0.30s ease-in-out;
     -moz-transition: all 0.30s ease-in-out;
     -ms-transition: all 0.30s ease-in-out;
     -o-transition: all 0.30s ease-in-out;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: auto;
+    outline: none;
 }
-textarea {
+textarea.tw_input {
 	resize: none;
 }
-textarea:focus {
-	border: 1px solid rgba(43, 182, 193, 0.9) !important;
-	box-shadow: 0 0 6px rgba(43, 182, 193, 0.6) !important;
-  	outline: 0 none !important;
+textarea.tw_input:focus {
+	border: 1px solid rgba(43, 182, 193, 0.9);
+	box-shadow: 0 0 6px rgba(43, 182, 193, 0.6);
+}
+textarea.tw_input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #bebfbf;
+}
+textarea.tw_input::-moz-placeholder { /* Firefox 19+ */
+  color: #bebfbf;
+}
+textarea.tw_input:-ms-input-placeholder { /* IE 10+ */
+  color: #bebfbf;
+}
+textarea.tw_input:-moz-placeholder { /* Firefox 18- */
+  color: #bebfbf;
 }
 
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -168,7 +183,10 @@ textarea:focus {
 	transform: translate(0%, -100%);
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
-    border-bottom: 7px solid #ffffff;
+    border-bottom: 7px solid #f9f9f9;
+}
+.destroy:hover {
+	color: #2bb6c1;
 }
 
 @-webkit-keyframes fadeInUp {
