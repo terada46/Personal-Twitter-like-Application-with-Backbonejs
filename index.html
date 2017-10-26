@@ -44,6 +44,9 @@
 		</div>
 	</div>
 
+	<!-- Templates -->
+
+	<!-- 单条推文模板 -->
 	<script type="text/template" id="li-template">
 		<div class="tweet-container">
 			<div class="dropdown-btn">
@@ -69,8 +72,9 @@
 				</div>
 			</div>
 		</div>
-
 	</script>
+
+	<!-- 评论列表模板 -->
 	<script type="text/template" id="comment-template">
 		<div class="comment-form">
 			<fieldset>
@@ -88,10 +92,13 @@
 		<% } %>
 		</ul> 
 	</script>
+
+	<!-- 单条评论的模板，以实现在列表顶部自动新增效果 -->
 	<script type="text/template" id="new-comment">
 		<div class="comment-date"><%= _.escape(comments[0].commentDateText) %></div>
 		<div><%= _.escape(comments[0].text) %></div>
 	</script>
+
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/underscore-min.js"></script>
