@@ -13,12 +13,10 @@ var app = app || {};
 		},
 
 		setLikedList: function() {
-			console.log('Like router work!');
 			app.twiFilter = 'liked';
 			app.tweets.trigger('filter');
 		},
 		setAll: function() {
-			console.log('All router work!');
 			app.twiFilter = 'all';
 			app.tweets.trigger('filter');
 		}
