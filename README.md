@@ -6,7 +6,7 @@ By: DENG XIAO DONG
 ### 运行应用
 
  - 直接从Git下载执行index.html加载即可。
- - 也可以直接复制当前index.html的url到 [htmlpreview.github.io](htmlpreview.github.io) 浏览。
+ - 也可以直接复制当前index.html的url到 [htmlpreview.github.io](http://htmlpreview.github.io/) 浏览。
 
 ### 技术说明
 
