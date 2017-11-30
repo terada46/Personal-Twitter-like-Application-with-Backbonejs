@@ -1,7 +1,5 @@
-//全局Backbone应用主体变量
-var app = app || {};
-
-(function() {
+//定义路由模型
+define(['backbone', 'jquery', './tweets', '../common'], function(Backbone, $, tweets, Common) {
 	'use strict';
 	
 	//定义全局app的路由，定义切换全部显示和喜欢（like）显示的URL键值对
@@ -13,18 +11,15 @@ var app = app || {};
 		},
 
 		setLikedList: function() {
-			app.twiFilter = 'liked';
-			app.tweets.trigger('filter');
+			Common.twiFilter = 'liked';
+			tweets.trigger('filter');
 		},
 		setAll: function() {
-			app.twiFilter = 'all';
-			app.tweets.trigger('filter');
+			Common.twiFilter = 'all';
+			tweets.trigger('filter');
 		}
 	});
 
 	//创建新全局路由实例
-	app.twiRouter = new TwiRouter();
-
-	//驱动路由
-	Backbone.history.start();
-})();
+	return TwiRouter;
+});

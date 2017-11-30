@@ -1,17 +1,22 @@
-//全局Backbone应用主体变量
-var app = app || {};
-
-(function ($) {
+//定义单条推文视图
+define([
+	'backbone', 
+	'jquery', 
+	'underscore',
+	'./allComments-view',
+	'./newComment-view',
+	'../common'
+], function(Backbone, $, _, commentsView, newCommentView, Common) {
 	'use strict';
 
-	//定义单条推文视图
-	app.TwiView = Backbone.View.extend({
+	//推文视图
+	var twiView = Backbone.View.extend({
 
 		//绑定至一个新的li标签
 		tagName: 'li',
 
 		//定义使用名为‘li-template’的模板
-		twi_template: template('li-template'),
+		twi_template: _.template($('#li-template').html()),
 
 		//定义删除视图、展开评论、提交评论、切换like状态、切换下拉按钮的点击事件
 		events: {
@@ -24,7 +29,7 @@ var app = app || {};
 
 		//初始化一个评论区视图，并绑定删除、新增评论、切换可见状态事件到当前模型
 		initialize: function() {
-			this.commentView = new app.CommentView({ model:this.model });
+			this.commentView = new commentsView({ model:this.model });
 			this.$commentList = this.$('.comment-list');
 			this.listenTo(this.model, 'destroy', this.remove);
 			this.listenTo(this.model, 'change:comments', this.addComment);
@@ -41,10 +46,10 @@ var app = app || {};
 		//根据路由定义的全局变量app.twiFilter切换当前视图是否显示
 		//同时执行切换标签栏样式方法
 		isVisible: function() {
-			if (app.twiFilter === 'liked' && !this.model.get('liked')) {
+			if (Common.twiFilter === 'liked' && !this.model.get('liked')) {
 				this.$el.hide();
 				this.toggleTabClass();
-			} else if (app.twiFilter === 'all') {
+			} else if (Common.twiFilter === 'all') {
 				this.$el.show();
 				this.toggleTabClass();
 			}
@@ -52,7 +57,7 @@ var app = app || {};
 
 		//根据全局变量app.twiFilter切换标签栏样式
 		toggleTabClass: function() {
-			var ifLiked = function(){return app.twiFilter === 'liked'};
+			var ifLiked = function(){return Common.twiFilter === 'liked'};
 			$('#like-tab').toggleClass('tab-clicked', ifLiked());
 			$('#all-tab').toggleClass('tab-clicked', !ifLiked());
 		},
@@ -85,7 +90,7 @@ var app = app || {};
 
 		//创建新评论视图、并立即渲染至评论列表视图的首行
 		addComment: function() {
-			var newComment = new app.NewCommentView({ model:this.model });
+			var newComment = new newCommentView({ model:this.model });
 			this.$el.find('.comment-list').prepend(newComment.render().el);
 		},
 
@@ -129,5 +134,6 @@ var app = app || {};
 			this.model.destroy();
 		}
 	});
-
-})(jQuery);
+	
+	return twiView;
+});

@@ -1,18 +1,20 @@
-//全局Backbone应用主体变量
-var app = app || {};
-
-(function() {
+//定义推文数据模型
+define([
+	'backbone', 
+	'./comments', 
+	'./comment'
+], function(Backbone, comments, comment) {
 	'use strict';
 	
 	//使用Backbone.Association插件
 	//定义推文model，以及其所关联的评论collection和评论model
 	//定义推文model的属性，包括创建时间字符串、like状态、评论展开状态
-	app.Tweet = Backbone.AssociatedModel.extend({
+	var tweet = Backbone.AssociatedModel.extend({
 			relations: [{
 				type: Backbone.Many,
 				key: 'comments',
-				collectionType: 'app.Comments',
-				relatedModel: 'app.Comment'
+				collectionType: 'comments',
+				relatedModel: comment
 			}],
 
 			defaults: {
@@ -42,5 +44,5 @@ var app = app || {};
 			}
 	});
 
-
-})();
+	return tweet;
+});

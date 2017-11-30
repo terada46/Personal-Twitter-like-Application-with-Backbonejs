@@ -11,3 +11,5 @@ By: DENG XIAO DONG
 ### 技术说明
 
 此应用使用了jQuery、Backbone.js两个JavaScript API库，以及Backbone-Associations.js插件。样式方面使用了Bootstrap框架和FontAwesome的图标字体库。请保持使用最新版本的浏览器查看，推荐使用CHROME浏览器。
+
+- 2017.12.01 引入requirejs来模块化加载和管理脚本。

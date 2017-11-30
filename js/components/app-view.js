@@ -1,11 +1,15 @@
-//全局Backbone应用主体变量
-var app = app || {};
-
-(function ($) {
+//定义APP主视图的模块
+define([
+	'jquery',
+	'underscore',
+	'backbone',
+	'./tweets',
+	'./tweet-view'
+], function($, _, Backbone, tweets, TwiView) {
 	'use strict';
 
 	//定义app主体视图
-	app.AppView = Backbone.View.extend({
+	var AppView = Backbone.View.extend({
 
 		//将app主体绑定到HTML上的元素
 		el: '#twiapp',
@@ -22,21 +26,21 @@ var app = app || {};
 			this.$textarea = $('textarea');
 			this.$tabBox = $('#tab_box');
 
-			this.listenTo(app.tweets, 'add', this.addOne);
-			this.listenTo(app.tweets, 'change add remove reset', this.toggleHidden);
-			this.listenTo(app.tweets, 'filter', this.filterAll);
+			this.listenTo(tweets, 'add', this.addOne);
+			this.listenTo(tweets, 'change add remove reset', this.toggleHidden);
+			this.listenTo(tweets, 'filter', this.filterAll);
 			this.render();
 		},
 
 		//主动触发改变事件，并渲染app视图
 		render: function() {
-			app.tweets.trigger('change');
-			app.tweets.fetch();
+			tweets.trigger('change');
+			tweets.fetch();
 		},
 
 		//监控collection数量变化，以标签栏样式（是否显示）
 		toggleHidden: function() {
-			var hastwi = app.tweets.length ? true : false;
+			var hastwi = tweets.length ? true : false;
 			this.$tabBox.toggleClass('hidden', !hastwi);
 			this.$tabBox.attr('aria-hidden', ( hastwi ? false : true));
 			this.$list.attr('aria-hidden', ( hastwi ? false : true));
@@ -49,12 +53,12 @@ var app = app || {};
 
 		//collection逐个执行filterOne
 		filterAll: function(event) {
-			app.tweets.each(this.filterOne, this);
+			tweets.each(this.filterOne, this);
 		},
 
 		//为新增model创建视图，并立即渲染至app首行
 		addOne: function(twi) {
-			var twiView = new app.TwiView({ model:twi });
+			var twiView = new TwiView({ model:twi });
 			this.$list.prepend(twiView.render().el);
 		},
 
@@ -62,7 +66,7 @@ var app = app || {};
 		post: function() {
 			if ( !this.$tweetBtn.hasClass('disabled') ) {
 				var nowDate = this.postDate();
-				app.tweets.create({text: this.$textarea.val(), twiDateText: nowDate });
+				tweets.create({text: this.$textarea.val(), twiDateText: nowDate });
 				this.$textarea.val('');
 				this.$tweetBtn.addClass('disabled');
 			}
@@ -74,5 +78,6 @@ var app = app || {};
 			return myDate.getFullYear() + '年' + (myDate.getMonth()+1) + '月' + myDate.getDate() + '日';
 		}
 	});
-
-})(jQuery);
+	
+	return AppView;
+});

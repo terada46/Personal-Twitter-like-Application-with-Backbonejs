@@ -1,13 +1,14 @@
-//全局Backbone应用主体变量
-var app = app || {};
-
-(function() {
-
+//定义推文下关联的评论模型集合
+define(['backbone', './comment'], function(Backbone, comment) {
+	'use strict';
+	
 	//定义评论数组的collection
-	app.Comments = Backbone.Collection.extend({
-		model: app.Comment,
+	var commentCollection = Backbone.Collection.extend({
+		model: comment,
 		url: function() {
 			return '/comments';
 		}
 	});
-})();
+
+	return new commentCollection();
+});

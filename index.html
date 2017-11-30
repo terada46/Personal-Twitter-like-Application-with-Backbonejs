@@ -10,11 +10,6 @@
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
-	<script>
-		window.template = function(id) {
-			return _.template( $('#' + id).html() );
-		};
-	</script>
 </head>
 <body role="application">
 	<div id="header">
@@ -45,7 +40,6 @@
 	</div>
 
 	<!-- Templates -->
-
 	<!-- 单条推文模板 -->
 	<script type="text/template" id="li-template">
 		<div class="tweet-container">
@@ -73,7 +67,6 @@
 			</div>
 		</div>
 	</script>
-
 	<!-- 评论列表模板 -->
 	<script type="text/template" id="comment-template">
 		<div class="comment-form">
@@ -92,41 +85,11 @@
 		<% } %>
 		</ul> 
 	</script>
-
 	<!-- 单条评论的模板，以实现在列表顶部自动新增效果 -->
 	<script type="text/template" id="new-comment">
 		<div class="comment-date"><%= _.escape(comments[0].commentDateText) %></div>
 		<div><%= _.escape(comments[0].text) %></div>
 	</script>
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/underscore-min.js"></script>
-	<script src="js/backbone.js"></script>
-	<script src="js/backbone-associations-min.js"></script>
-	<script src="js/backbone.localStorage.js"></script>
-	<script src="js/components/tweet.js"></script>
-	<script src="js/components/tweets.js"></script>
-	<script src="js/components/tweet-view.js"></script>
-	<script src="js/components/app-view.js"></script>
-	<script src="js/components/comment.js"></script>
-	<script src="js/components/comments.js"></script>
-	<script src="js/components/comment-view.js"></script>
-	<script src="js/components/router.js"></script>
-	<script src="js/components/app.js"></script>
-	<script>
-	$(document).ready(function(){
-		$('#tweet').addClass('disabled');
-		$('textarea').bind('input propertychange', function() {
-		   $('#tweet').toggleClass('disabled', !($('textarea').val()));
-		});
-	 });
-
-	$(document).on('click', function(event) {
-		if (!$(event.target).closest($('.dropdown-btn')).length) {
-			$('.destroy').removeClass('show').addClass('fadeOutDown');
-		}
-	})
-	</script>
+	<script data-main="js/main.js" src="js/lib/require.js"></script>
 </body>
 </html>
