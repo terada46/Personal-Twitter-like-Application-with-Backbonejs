@@ -5,11 +5,10 @@ By: DENG XIAO DONG
 
 ### 运行应用
 
- - 直接从Git下载执行index.html加载即可。
- - 也可以直接复制当前index.html的url到 [htmlpreview.github.io](http://htmlpreview.github.io/) 浏览。
+ - 直接从Git下载执行index.html加载即可。请保持使用最新版本的浏览器查看，推荐使用CHROME浏览器。
 
 ### 技术说明
 
-此应用使用了jQuery、Backbone.js两个JavaScript API库，以及Backbone-Associations.js插件。样式方面使用了Bootstrap框架和FontAwesome的图标字体库。请保持使用最新版本的浏览器查看，推荐使用CHROME浏览器。
+此应用使用了jQuery、Backbone.js两个JavaScript API库，以及Backbone-Associations.js插件。样式方面使用了Bootstrap框架和FontAwesome的图标字体库。
 
 - 2017.12.01 引入requirejs来模块化加载和管理脚本。
